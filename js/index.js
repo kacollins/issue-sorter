@@ -27,9 +27,13 @@ function displaySortedIssues(data, label)
 
     for (i = 0; i < sortedIssues.length; i++)
     {
-        list.append($('<li>').append(getDate(sortedIssues[i].title)
-            + " <a href='" + sortedIssues[i].html_url + "'>"
-            + getMeetupName(sortedIssues[i].title) + "</a>"));
+        var date = getDate(sortedIssues[i].title);
+
+        var html = "<a href='" + sortedIssues[i].html_url
+            + "' class='list-group-item list-group-item-action" + getItemClass(date) + "'>"
+            + date + " " + getMeetupName(sortedIssues[i].title) + "</a>";
+
+        list.append(html);
     }
 }
 
@@ -55,6 +59,24 @@ function getDate(title)
         {
             return "unknown date";
         }
+    }
+}
+
+function getItemClass(date)
+{
+    var today = new Date().toISOString().substring(0, 10);
+
+    if (date < today || date == "unknown date")
+    {
+        return " list-group-item-danger";
+    }
+    else if (date == today)
+    {
+        return " list-group-item-warning";
+    }
+    else
+    {
+        return "";
     }
 }
 

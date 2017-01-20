@@ -3,15 +3,29 @@
 <head>
     <title>Techlahoma User Group Issues</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Techlahoma User Group Issues</h1>
+<h1 style="margin-left:10px">Techlahoma User Group Issues</h1>
 
-<h2>Open Food Issues</h2>
-<ul id="food"></ul>
-
-<h2>Open Scheduling Issues</h2>
-<ul id="scheduling"></ul>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
+            <div id="scheduling" class="list-group">
+                <a href="https://github.com/techlahoma/user-groups/labels/scheduling" class="list-group-item active">
+                    Open Scheduling Issues
+                </a>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div id="food" class="list-group">
+                <a href="https://github.com/techlahoma/user-groups/labels/food" class="list-group-item active">
+                    Open Food Issues
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="js/index.js"></script>
 <script src="js/jquery-2.1.0.min.js"></script>
