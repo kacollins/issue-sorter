@@ -9,30 +9,16 @@
 <h1 style="margin-left:10px">Techlahoma User Group Issues</h1>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-5">
-            <div id="scheduling" class="list-group">
-                <a href="https://github.com/techlahoma/user-groups/labels/scheduling" class="list-group-item active">
-                    Open Scheduling Issues
-                </a>
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div id="food" class="list-group">
-                <a href="https://github.com/techlahoma/user-groups/labels/food" class="list-group-item active">
-                    Open Food Issues
-                </a>
-            </div>
-        </div>
-    </div>
+    <div id="row" class="row" />
 </div>
 
 <script src="js/index.js"></script>
 <script src="js/jquery-2.1.0.min.js"></script>
 <script src="js/lodash.js"></script>
+<script src="js/moment.min.js"></script>
 <script type="text/javascript">
-    loadIssues("food");
     loadIssues("scheduling");
+    loadIssues("food");
 </script>
 </body>
 </html>

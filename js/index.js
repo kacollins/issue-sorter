@@ -20,23 +20,40 @@ function loadIssues(label)
 
 function displaySortedIssues(data, label)
 {
-    var sortedIssues = _.sortBy(data.items, [function (issue)
+    if (data.items.length > 0)
     {
-        return getDate(issue.title);
-    }]);
+        createDivForList(label);
 
-    var list = $("#" + label);
+        var sortedIssues = _.sortBy(data.items, [function (issue)
+        {
+            return getDate(issue.title);
+        }]);
 
-    for (i = 0; i < sortedIssues.length; i++)
-    {
-        var date = getDate(sortedIssues[i].title);
+        var list = $("#" + label);
 
-        var html = "<a href='" + sortedIssues[i].html_url
-            + "' class='list-group-item list-group-item-action" + getItemClass(date) + "'>"
-            + date + " " + getMeetupName(sortedIssues[i].title) + "</a>";
+        for (i = 0; i < sortedIssues.length; i++)
+        {
+            var date = getDate(sortedIssues[i].title);
 
-        list.append(html);
+            var html = "<a href='" + sortedIssues[i].html_url
+                + "' class='list-group-item list-group-item-action" + getItemClass(date) + "'>"
+                + date + " " + getMeetupName(sortedIssues[i].title) + "</a>";
+
+            list.append(html);
+        }
     }
+}
+
+function createDivForList(label)
+{
+    var row = $("#row");
+
+    row.append("<div id='" + label + "' class='col-md-4 list-group' style='margin:10px'>"
+        + "<a href='https://github.com/techlahoma/user-groups/labels/"
+        + label + "' class='list-group-item active'>"
+        + "Open " + label.charAt(0).toUpperCase() + label.substring(1) + " Issues"
+        + "</a>"
+        + "</div>");
 }
 
 function getDate(title)
