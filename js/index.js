@@ -67,16 +67,31 @@ function getDate(title)
     }
     else
     {
-        var mmddyyyy = /(\d{2})\/(\d{2})\/(\d{4})/;
+        var mmddyyyy = /(\d{1,2})\/(\d{1,2})\/(\d{4})/;
         match = title.match(mmddyyyy);
 
         if (match)
         {
             //yyyy-mm-dd
-            return match[3] + "-" + match[1] + "-" + match[2];
+            var year = match[3];
+            var month = (match[1].length == 1 ? "0" : "") + match[1];
+            var day = (match[2].length == 1 ? "0" : "") + match[2];
+            return year + "-" + month + "-" + day;
         }
         else
         {
+            var mmdd = /(\d{1,2})\/(\d{1,2})/;
+            match = title.match(mmdd);
+
+            if (match)
+            {
+                //yyyy-mm-dd assuming the current year
+                var year = new Date().getFullYear();
+                var month = (match[1].length == 1 ? "0" : "") + match[1];
+                var day = (match[2].length == 1 ? "0" : "") + match[2];
+                return year + "-" + month + "-" + day;
+            }
+
             return unknownDate;
         }
     }
