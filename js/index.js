@@ -130,15 +130,25 @@ function getItemClass(date)
 
 function getMeetupName(title)
 {
+    var result = title;
     var start = title.indexOf(" for ");
     var end = title.indexOf("|");
 
-    if (start >= 0 && end >= 0)
+    if (start >= 0 && end < 0)
     {
-        return title.substring(start + " for ".length, end).replace(" event", "").trim();
+        //if there isn't a pipe, get the text between " for " and any digits (probably the date)
+        var pattern = /(?: for )(\D*)(?= \d)/;
+        var match = title.match(pattern);
+
+        if (match)
+        {
+            result = match[1];
+        }
     }
-    else
+    else if (start >= 0 && end >= 0)
     {
-        return title.trim();
+        result = title.substring(start + " for ".length, end).replace(" event", "");
     }
+
+    return result.trim();
 }
