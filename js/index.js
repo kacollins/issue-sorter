@@ -58,25 +58,22 @@ function createDivForList(label)
 
 function getDate(title)
 {
+    var result = unknownDate;
     var yyyymmdd = /\d{4}-\d{2}-\d{2}/;
     var match = title.match(yyyymmdd);
 
     if (match)
     {
-        return match[0];
+        result = match[0];
     }
     else
     {
-        var mmddyyyy = /(\d{1,2})\/(\d{1,2})\/(\d{4})/;
+        var mmddyyyy = /(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/;
         match = title.match(mmddyyyy);
 
         if (match)
         {
-            //yyyy-mm-dd
-            var year = match[3];
-            var month = (match[1].length == 1 ? "0" : "") + match[1];
-            var day = (match[2].length == 1 ? "0" : "") + match[2];
-            return year + "-" + month + "-" + day;
+            result = getDateFromMonthDayYearFormat(match);
         }
         else
         {
@@ -85,16 +82,32 @@ function getDate(title)
 
             if (match)
             {
-                //yyyy-mm-dd assuming the current year
-                var year = new Date().getFullYear();
-                var month = (match[1].length == 1 ? "0" : "") + match[1];
-                var day = (match[2].length == 1 ? "0" : "") + match[2];
-                return year + "-" + month + "-" + day;
+                result = getDateFromMonthDayFormat(match);
             }
-
-            return unknownDate;
         }
     }
+
+    return result;
+}
+
+function getDateFromMonthDayYearFormat(match)
+{
+    //yyyy-mm-dd
+    var year = match[3];
+    var month = (match[1].length == 1 ? "0" : "") + match[1];
+    var day = (match[2].length == 1 ? "0" : "") + match[2];
+    var result = year + "-" + month + "-" + day;
+    return result;
+}
+
+function getDateFromMonthDayFormat(match)
+{
+    //yyyy-mm-dd assuming the current year
+    var year = new Date().getFullYear();
+    var month = (match[1].length == 1 ? "0" : "") + match[1];
+    var day = (match[2].length == 1 ? "0" : "") + match[2];
+    var result = year + "-" + month + "-" + day;
+    return result;
 }
 
 function getItemClass(date)
