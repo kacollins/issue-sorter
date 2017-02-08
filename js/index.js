@@ -26,14 +26,14 @@ function displaySortedIssues(data, label)
 
         var sortedIssues = _.sortBy(data.items, [function (issue)
         {
-            return getDate(issue.title);
+            return getDateForIssue(issue);
         }]);
 
         var list = $("#" + label);
 
         for (i = 0; i < sortedIssues.length; i++)
         {
-            var date = getDate(sortedIssues[i].title);
+            var date = getDateForIssue(sortedIssues[i]);
 
             var html = "<a href='" + sortedIssues[i].html_url
                 + "' class='list-group-item list-group-item-action" + getItemClass(date) + "'>"
@@ -56,11 +56,16 @@ function createDivForList(label)
         + "</div>");
 }
 
-function getDate(title)
+function getDateForIssue(issue)
 {
-    var result = unknownDate;
+    return getDate(issue.title) || getDate(issue.body) || unknownDate;
+}
+
+function getDate(input)
+{
+    var result = null;
     var yyyymmdd = /\d{4}-\d{2}-\d{2}/;
-    var match = title.match(yyyymmdd);
+    var match = input.match(yyyymmdd);
 
     if (match)
     {
@@ -69,7 +74,7 @@ function getDate(title)
     else
     {
         var mmddyyyy = /(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/;
-        match = title.match(mmddyyyy);
+        match = input.match(mmddyyyy);
 
         if (match)
         {
@@ -78,7 +83,7 @@ function getDate(title)
         else
         {
             var mmdd = /(\d{1,2})\/(\d{1,2})/;
-            match = title.match(mmdd);
+            match = input.match(mmdd);
 
             if (match)
             {
