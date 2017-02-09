@@ -1,5 +1,3 @@
-var unknownDate = "unknown date";
-
 function loadIssues(label)
 {
     var url = "https://api.github.com/search/issues?q=user:techlahoma+repo:user-groups+label:"
@@ -58,7 +56,7 @@ function createDivForList(label)
 
 function getDateForIssue(issue)
 {
-    return getDate(issue.title) || getDate(issue.body) || unknownDate;
+    return getDate(issue.title) || getDate(issue.body) || "";
 }
 
 function getDate(input)
@@ -119,7 +117,11 @@ function getItemClass(date)
 {
     var today = moment(new Date()).format('YYYY-MM-DD');
 
-    if (date < today || date == unknownDate)
+    if (date == "")
+    {
+        return " list-group-item-info";
+    }
+    else if (date < today)
     {
         return " list-group-item-danger";
     }
