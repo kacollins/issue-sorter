@@ -1,7 +1,9 @@
 function loadIssues(label)
 {
     var url = "https://api.github.com/search/issues?q=user:techlahoma+repo:user-groups+label:"
-        + label + "+state:open";
+        + label + "+state:open&per_page=100";
+
+    //TODO: get subsequent pages of results if there are more than 100
 
     $.getJSON(url, function (data)
     {
