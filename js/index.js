@@ -1,7 +1,7 @@
 function loadIssues(label)
 {
-    var url = "https://api.github.com/search/issues?q=user:techlahoma+repo:user-groups+label:"
-        + label + "+state:open&per_page=100";
+    var url = "https://api.github.com/repos/techlahoma/user-groups/issues?per_page=100&labels="
+        + label;
 
     //TODO: get subsequent pages of results if there are more than 100
 
@@ -20,11 +20,11 @@ function loadIssues(label)
 
 function displaySortedIssues(data, label)
 {
-    if (data.items.length > 0)
+    if (data.length > 0)
     {
         createDivForList(label);
 
-        var sortedIssues = _.sortBy(data.items, [function (issue)
+        var sortedIssues = _.sortBy(data, [function (issue)
         {
             return getDateForIssue(issue);
         }]);
