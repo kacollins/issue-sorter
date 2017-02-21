@@ -22,7 +22,7 @@ function displaySortedIssues(data, label)
 {
     if (data.length > 0)
     {
-        createDivForList(label);
+        createDivForList(label, data.length);
 
         var sortedIssues = _.sortBy(data, [function (issue)
         {
@@ -44,16 +44,22 @@ function displaySortedIssues(data, label)
     }
 }
 
-function createDivForList(label)
+function createDivForList(label, issueCount)
 {
     var row = $("#row");
 
-    row.append("<div id='" + label + "' class='col-md-4 list-group' style='margin:10px'>"
+    row.append("<div id='" + label + "' class='col-md-4 list-group' style='width: auto; margin:10px'>"
         + "<a href='https://github.com/techlahoma/user-groups/labels/"
         + label + "' class='list-group-item active'>"
-        + "Open " + label.charAt(0).toUpperCase() + label.substring(1) + " Issues"
+        + "Open " + capitalize(label) + " Issues"
+        + "<span class='badge'>" + issueCount + "</span>"
         + "</a>"
         + "</div>");
+}
+
+function capitalize(input)
+{
+    return input.charAt(0).toUpperCase() + input.substring(1);
 }
 
 function getDateForIssue(issue)
